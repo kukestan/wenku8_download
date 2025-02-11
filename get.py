@@ -86,21 +86,27 @@ with open('log.txt', 'w', encoding='utf-8') as f:
 for i in range(loop_count):
     file_id = i + start_id
     print_to_file_and_console(f'{file_id}: ————————————————————开始————————————————————')
+    # 下载
     ret = download(file_id)
+    #出错
     if ret == 2 or ret == 3 or ret == 4:
+        # 最大重试 3 次
         for j in range(3):
             print_to_file_and_console(f'{file_id}: ——————第{j+1}次重试——————')
             time.sleep(10)
+            # 重试下载
             ret = download(file_id)
+            # 成功或者文件不存在
             if ret == 0 or ret == 1:
                 break
+            # 重试次数用完
             if j == 2:
                 print_to_file_and_console(f'{file_id}: ###文件{file_id}下载重试超过最大次数###')
     
     file_path = Path(f'{file_id}.txt')
-    if file_path.is_file():
+    if file_path.is_file(): # 本地文件存在
         print_to_file_and_console(f'{file_id}: ————————————————————成功————————————————————\n\n')
-    elif ret == 1:
+    elif ret == 1: # 本地文件不存在，远程文件也不存在
         print_to_file_and_console(f'{file_id}: ————————————————————不存在————————————————————\n\n')
-    else:
+    else: # 本地文件不存在，错误码为失败
         print_to_file_and_console(f'{file_id}: ————————————————————失败————————————————————\n\n')
