@@ -14,20 +14,21 @@ def download(id):
     # 错误码
     error_code = 0 # success
     # 下载链接
-    download_url = f'https://dl.wenku8.com/down.php?type=txt&node=1&id={id}'
+    # download_url = f'https://dl.wenku8.com/down.php?type=txt&node=1&id={id}'
+    download_url = f'https://dl.wenku8.com/down.php?type=utf8&node=1&id={id}'
     print_to_file_and_console(f'{id}: 下载链接 {download_url}')
 
     # 设置请求头，模拟浏览器访问
-    #headers = {
-    #    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+    #  headers = {
+    #     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
     headers = {
         'User-Agent': 'MQQBrowser/26 Mozilla/5.0 (Linux; U; Android 2.3.7; zh-cn; MB200 Build/GRJ22; CyanogenMod-7) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'}
 
     try:
         # 发送 GET 请求
-        # 设置超时时间 10 秒
-        response = requests.get(download_url, headers=headers, timeout=10)
+        # 设置超时时间 15 秒
+        response = requests.get(download_url, headers=headers, timeout=15)
         # 检查响应状态码
         response.raise_for_status()
 
@@ -76,9 +77,9 @@ def download(id):
         return error_code
 
 # 起始的 id 编号
-start_id = 809
+start_id = 1
 # 循环次数 3863
-loop_count = 3863 - start_id
+loop_count = 4000
 # 清空日志
 with open('log.txt', 'w', encoding='utf-8') as f:
     pass
