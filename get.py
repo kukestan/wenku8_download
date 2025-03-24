@@ -76,6 +76,9 @@ def download(id):
         # 返回错误码
         return error_code
 
+# 记录开始时间
+start_time = time.time()
+
 # 起始的 id 编号
 start_id = 1
 # 循环次数 3863
@@ -111,3 +114,10 @@ for i in range(loop_count):
         print_to_file_and_console(f'{file_id}: ————————————————————不存在————————————————————\n\n')
     else: # 本地文件不存在，错误码为失败
         print_to_file_and_console(f'{file_id}: ————————————————————失败————————————————————\n\n')
+
+# 记录结束时间
+end_time = time.time()
+
+# 计算运行时间
+run_time = end_time - start_time
+print(f"程序运行时间: {int(run_time)} 秒")
